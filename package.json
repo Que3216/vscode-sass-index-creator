@@ -15,9 +15,7 @@
         "sass",
         "import",
         "index",
-        "template",
-        "generator",
-        "imports"
+        "generator"
     ],
     "activationEvents": [
         "onLanguage:scss"
