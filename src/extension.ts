@@ -54,7 +54,7 @@ export class Templater {
             const path = join(currentDirectory, directoryOrFile);
             if (lstatSync(path).isDirectory()) {
                 if (this.containsSassIndexFileSync(path)) {
-                    fileContents.push(`@import "${directoryOrFile}";`);
+                    fileContents.push(`@import "${join(directoryOrFile, "index")}";`);
                 }
             } else if (directoryOrFile.endsWith(".scss") || directoryOrFile.endsWith(".sass")) {
                 const sassFileName = basename(path, extname(path));
