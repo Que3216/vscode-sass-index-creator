@@ -2,7 +2,7 @@
     "name": "sass-index-creator",
     "displayName": "sass-index-creator",
     "description": "When you create an index.scss it will automatically populate it with imports for all the sass files in the current directory, and all the index.scss files in the sub-directories.",
-    "version": "0.0.4",
+    "version": "1.0.0",
     "publisher": "q",
     "repository": {
         "type": "git",
