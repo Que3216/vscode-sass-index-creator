@@ -62,6 +62,9 @@ export class Templater {
             }
         });
 
+        // Add a new line at the end
+        fileContents.push("");
+
         editor.edit(builder => {
             builder.insert(doc.positionAt(0), fileContents.join("\n"));
         });

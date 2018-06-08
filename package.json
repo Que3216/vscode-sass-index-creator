@@ -5,8 +5,8 @@
     "version": "0.0.1",
     "publisher": "q",
     "repository": {
-        "type" : "git",
-        "url" : "https://github.com/Que3216/vscode-sass-index-creator.git"
+        "type": "git",
+        "url": "https://github.com/Que3216/vscode-sass-index-creator.git"
     },
     "engines": {
         "vscode": "^1.12.0"
