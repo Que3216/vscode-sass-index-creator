@@ -1,6 +1,7 @@
 import { existsSync, lstatSync, readdirSync } from 'fs';
 import { basename, dirname, extname, join } from 'path';
 import { Disposable, ExtensionContext, window, workspace } from 'vscode';
+import { WSAEPROVIDERFAILEDINIT } from 'constants';
 
 // this method is called when your extension is activated. activation is
 // controlled by the activation events defined in package.json
@@ -45,7 +46,8 @@ export class Templater {
         const currentDirectory = dirname(doc.fileName);
 
         const directoriesAndFiles = readdirSync(currentDirectory);
-        const fileContents: string[] = [];
+        const directoryImports: string[] = [];
+        const fileImports: string[] = [];
 
         directoriesAndFiles.forEach(directoryOrFile => {
             if (directoryOrFile === basename(doc.fileName)) {
@@ -54,16 +56,19 @@ export class Templater {
             const path = join(currentDirectory, directoryOrFile);
             if (lstatSync(path).isDirectory()) {
                 if (this.containsSassIndexFileSync(path)) {
-                    fileContents.push(`@import "${join(directoryOrFile, "index")}";`);
+                    directoryImports.push(`@import "${join(directoryOrFile, "index")}";`);
                 }
             } else if (directoryOrFile.endsWith(".scss") || directoryOrFile.endsWith(".sass")) {
                 const sassFileName = basename(path, extname(path));
-                fileContents.push(`@import "${sassFileName}";`);
+                fileImports.push(`@import "${sassFileName}";`);
             }
         });
 
-        // Add a new line at the end
-        fileContents.push("");
+        const fileContents: string[] = [
+            ...directoryImports,
+            ...fileImports,
+            "" // Add a new line at the end
+        ];
 
         editor.edit(builder => {
             builder.insert(doc.positionAt(0), fileContents.join("\n"));
