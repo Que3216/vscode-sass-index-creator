@@ -18,5 +18,5 @@ And you create an `index.scss` file in the root directory then this plugin will 
 ```
 @import "file1";
 @import "file2";
-@import "sub-component";
+@import "sub-component/index";
 ```
